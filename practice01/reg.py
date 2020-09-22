@@ -1,9 +1,9 @@
 import re
 
-p = re.compile('ca.e')
+# p = re.compile('ca.e')
 # . ('ca.e') : 하나의 문자 > care, cafe, case (O) | caffe (X)
 # ^ ('^de')  : 문자열의 시작 > desk, destination (O) | fade (X)
-# $ ('de$')  : 문자열의 끝 > shade, fade (O) | desk (O)
+# $ ('de$')  : 문자열의 끝 > shade, fade (O) | desk (X)
 
 # 매칭
 # m = p.match('cafe')
@@ -37,3 +37,8 @@ def print_match(m) :
 #  l = p.findall('care carelist cafe cave ')
 # findall : 일치하는 모든 것을 리스트 형태로 반환
 # print(l)
+
+
+p = re.compile('^dr')
+m = p.match('dragon')
+print(m.string)
