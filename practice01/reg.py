@@ -38,7 +38,7 @@ def print_match(m) :
 # findall : 일치하는 모든 것을 리스트 형태로 반환
 # print(l)
 
-
-p = re.compile('^dr')
-m = p.match('dragon')
+# 왜 오류나지??
+p = re.compile('xyz$')
+m = p.match('111xyz')
 print(m.string)
