@@ -13,22 +13,22 @@ cartoons = soup.find_all('td', attrs={'class':'title'})
 # link = cartoons[0].a.get('href')
 # print(title, 'https://comic.naver.com/' + link)
 
-result_list = []
-for cartoon in cartoons :
-	title = cartoon.a.get_text()
-	link = 'https://comic.naver.com/' + cartoon.a.get('href')
-	result_list.append({'title': title, 'url': link})
+# result_list = []
+# for cartoon in cartoons :
+# 	title = cartoon.a.get_text()
+# 	link = 'https://comic.naver.com/' + cartoon.a.get('href')
+# 	result_list.append({'title': title, 'url': link})
 
 
-print(result_list)
+# print(result_list)
 
 # 평점 구하기
-# cartoons = soup.find_all('div', attrs={'class', 'rating_type'})
-# total_rate = 0
-# for cartoon in cartoons : 
-# 	rate = cartoon.find('strong').get_text()
-# 	print(rate)
-# 	total_rate += float(rate)
+cartoons = soup.find_all('div', attrs={'class', 'rating_type'})
+total_rate = 0
+for cartoon in cartoons : 
+	rate = cartoon.find('strong').get_text()
+	print(rate)
+	total_rate += float(rate)
 
-# print('총점 : ' + '%0.2f' % total_rate)
-# print('평균 평점 : ' + '%0.2f' % (total_rate / len(cartoons)))
+print('총점 : ' + '%0.2f' % total_rate)
+print('평균 평점 : ' + '%0.2f' % (total_rate / len(cartoons)))
