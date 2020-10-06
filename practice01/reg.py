@@ -59,6 +59,12 @@ in_soup = BeautifulSoup(in_res.text, 'lxml')
 in_title_elem = in_soup.find('title')
 
 email_pattern = r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+)"
+tel_num_pattern = r"\d\d\d-\d\d\d-\d\d\d\d"
+tel_num_pattern2 = r"\d\d\d-\d\d\d-\d\d\d\d"
+tel_num_pattern3 = r"\d\d\d\d-\d\d\d\d"
 get_email = re.search(email_pattern, str(in_soup))
-if get_email:
-	print('{0}사이트에서 이메일 수집 성공! \n 이메일 주소는 : {1}'.format(in_title_elem.get_text(), get_email.group()))
+get_tel_num = re.search(tel_num_pattern, str(in_soup)) 
+get_tel_num2 = re.search(tel_num_pattern2, str(in_soup)) 
+get_tel_num3 = re.search(tel_num_pattern3, str(in_soup)) 
+if get_email :
+	print('{0}사이트에서 이메일 수집 성공! \n 이메일 주소는 : {1}'.format(in_title_elem.get_text(), get_email.group()))
