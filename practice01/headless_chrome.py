@@ -3,14 +3,15 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
 
-browser = webdriver.Chrome(r'C:\Users\PC\Documents\simbyungki\git\web_scraping\chromedriver.exe')
+options = webdriver.ChromeOptions()
+options.headless = True
+options.add_argument('window-size=1920x1080')
+
+browser = webdriver.Chrome(r'C:\Users\PC\Documents\simbyungki\git\web_scraping\chromedriver.exe', options=options)
 browser.maximize_window()
 
 url = 'https://play.google.com/store/movies/top'
 browser.get(url)
-
-# 브라우저 스크립트 실행
-# browser.execute_script('window.scrollTo(0, 1080)')
 
 # 화면 바닥
 browser.execute_script('window.scrollTo(0, document.body.scrollHeight)')
@@ -35,6 +36,7 @@ while True :
 	prev_height = curr_height
 
 print('모든 데이터 로드 완료')
+browser.get_screenshot_as_file('play_google_movie.png')
 # browser.quit()
 
 # scraping
