@@ -42,16 +42,18 @@ while True :
 
 print('모든 데이터 로드 완료')
 
-time.sleep(5)
+time.sleep(2)
 
 soup = BeautifulSoup(browser.page_source, 'lxml')
-
 
 car_list = soup.select('#sr_normal > tr')
 # car_list = soup.select('.generalRegist > list-in > .area')
 
+print(len(car_list))
 for car_row in car_list :
-	car_names = car_row.find_all('span', attrs={'class': 'newLink _link'})
+	# 개별 tr
+	# print(car_row.get_text())
+	car_names = car_row.find_all('a', attrs={'class': 'newLink _link'})
 	for car_name in car_names :
 		print(car_name.get_text())
 	
