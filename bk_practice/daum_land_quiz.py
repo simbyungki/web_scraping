@@ -1,8 +1,7 @@
 import requests
-import time
 from bs4 import BeautifulSoup
 
-headers = headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36'}
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36'}
 url = 'https://search.daum.net/search?w=tot&DA=YZR&t__nil_searchbox=btn&sug=&sugo=&sq=&o=&q=%EC%86%A1%ED%8C%8C+%ED%97%AC%EB%A6%AC%EC%98%A4%EC%8B%9C%ED%8B%B0'
 
 res = requests.get(url, headers=headers)
@@ -27,4 +26,4 @@ for idx, row in enumerate(land_list) :
 	print(f'층 : {_floor}')
 
 
-# https://youtu.be/yQ20jZwDjTE?t=16347
+# https://youtu.be/yQ20jZwDjTE?t=17003
