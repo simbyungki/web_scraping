@@ -1,29 +1,3 @@
-# 출력 예시
-# [오늘의 풍무동 날씨]
-# 흐림, 어제보다 00˚ 높아요
-# 현재 00˚ (최저 00˚ / 최고 00˚)
-# 오전 강수확률 00% / 오후 강수확률 00%
-
-# 미세먼지 24㎍/㎥ 좋음
-# 초미세먼지 16㎍/㎥ 보통
-
-# [헤드라인 뉴스]
-# 1. 무슨 무슨 일이...
-#   (링크 : https://...)
-# 2. 무슨 무슨 일이...
-#   (링크 : https://...)
-
-# [IT 뉴스]
-# 1. 무슨 무슨 일이...
-#   (링크 : https://...)
-# 2. 무슨 무슨 일이...
-#   (링크 : https://...)
-
-# [오늘의 한줄 명언]
-# eng) ....
-# kor) ....
-
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -34,43 +8,56 @@ url_it_news = 'https://news.naver.com/main/list.nhn?mode=LS2D&mid=shm&sid1=105&s
 url_study_eng = 'https://www.hackers.co.kr/?c=s_lec/lec_study/lec_B_others_wisesay&keywd=haceng_submain_lnb_lec_B_others_wisesay&logger_kw=haceng_submain_lnb_lec_B_others_wisesay'
 urls = [url_wether, url_headline_news, url_it_news, url_study_eng]
 
-
-
-
 for url in urls :
 	res = requests.get(url, headers=headers)
 	res.raise_for_status()
 	soup = BeautifulSoup(res.text, 'lxml')
-	# 날씨정보
-	if url == url_wether :
+	if url == url_wether : # 날씨정보
 		w_infos01 = soup.find_all('div', attrs={'class': 'main_info'})
 		summary = w_infos01[0].find('p', attrs={'class': 'cast_txt'}).get_text()
 		temp01 = w_infos01[0].find('span', attrs={'class': 'todaytemp'}).get_text()
 		temp02 = w_infos01[0].find('span', attrs={'class': 'min'}).find('span', attrs={'class': 'num'}).get_text()
 		temp03 = w_infos01[0].find('span', attrs={'class': 'max'}).find('span', attrs={'class': 'num'}).get_text()
 		w_info02 = soup.find('div', attrs={'class': 'sub_info'})
-		dust01 = w_info02.find('dl', attrs={'class': 'indicator'}).find_all('dd', attrs={'class':'lv1'})[0].get_text()
-		dust02 = w_info02.find('dl', attrs={'class': 'indicator'}).find_all('dd', attrs={'class':'lv1'})[1].get_text()
-
+		dust01 = w_info02.find('dl', attrs={'class': 'indicator'}).find_all('dd')[0].get_text()
+		dust02 = w_info02.find('dl', attrs={'class': 'indicator'}).find_all('dd')[1].get_text()
+		print('-' *150)
 		print('[오늘의 풍무동 날씨]')
 		print(summary)
 		print(f'현재 {temp01}˚ (최저 {temp02}˚ / 최고 {temp03}˚)')
 		#print(f'오전 강수확률 00% / 오후 강수확률 00%')
 		print(f'미세먼지 {dust01}')
 		print(f'초미세먼지 {dust02}')
-
-	elif url == url_headline_news :
-
-		
-# [헤드라인 뉴스]
-# 1. 무슨 무슨 일이...
-#   (링크 : https://...)
-# 2. 무슨 무슨 일이...
-#   (링크 : https://...)
+	elif url == url_headline_news :	# 헤드라인 뉴스
+		headlines = soup.find('ul', attrs={'class':'hdline_article_list'}).find_all('li')
+		print('-' *150)
+		print('[헤드라인 뉴스]')
+		for idx, headline in enumerate(headlines) :
+			headline_title = headline.find('div', attrs={'class':'hdline_article_tit'}).get_text().strip()
+			headline_link = 'https://news.naver.com' + headline.find('div', attrs={'class':'hdline_article_tit'}).find('a', attrs={'class':'lnk_hdline_article'})['href']
+			print(f'{idx +1}. {headline_title}')
+			print(f'  ({headline_link})')
 	elif url == url_it_news :
-		print(33)
+		it_normals = soup.find('ul', attrs={'class':'type06_headline'}).find_all('li')
+		print('-' *150)
+		print('[IT 뉴스]')
+		for idx, it_normal in enumerate(it_normals) :
+			it_normal_title = it_normal.find_all('dt')[1].get_text().strip()
+			it_normal_link = it_normal.find_all('dt')[1].find('a')['href']
+			print(f'{idx +1}. {it_normal_title}')
+			print(f'  ({it_normal_link})')
 	else : 
-		print(44)
+		eng_wise_sayings = soup.find('div', attrs={'class':'text_en'}).find('p').get_text().strip()
+		eng_writer = soup.find('div', attrs={'class':'text_en'}).find('p', attrs={'class':'writer'}).get_text().strip()
+		kor_wise_sayings = soup.find('div', attrs={'class':'text_ko'}).find('p').get_text().strip()
+		kor_writer = soup.find('div', attrs={'class':'text_ko'}).find('p', attrs={'class':'writer'}).get_text().strip()
+		print('-' *150)
+		print('[오늘의 한줄명언]')
+		print(f'eng) {eng_wise_sayings}')
+		print(f'- {eng_writer} -')
+		print(f'kor) {kor_wise_sayings}')
+		print(f'- {kor_writer} -')
+
 
 
 
