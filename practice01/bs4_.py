@@ -38,6 +38,20 @@ webtoon = soup.find('a', text='남주의 첫날밤을 가져버렸다-12화')
 print(webtoon)
 
 
+objs = {
+	'location' : 1,
+	'summary' : 2,
+	'temp01' : 3,
+	'temp02' : 4,
+	'temp03' : 5,
+	'dust01' : 6,
+	'dust02' : 7
+}
+
+for obj in objs :
+	print(objs.get(obj)) 
+
+
 
 # with open('./practice01/naver_webtoon.html', 'w', encoding='utf8') as f :
 # 	f.write(res.text)

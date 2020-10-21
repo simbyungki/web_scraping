@@ -58,10 +58,6 @@ def get_naver_news(keyword, cnt) :
 	
 	print()
 
-
-
-
-
 def get_news_list() :
 	get_naver_news('오토플러스', 5)
 	get_naver_news('리본카', 5)
